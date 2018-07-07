@@ -17,19 +17,34 @@ def is_mel(name, email):
     False
     >>> is_mel('Judith Butler', 'mel@ubermelon.com')
     True
-    >>> is_mel('Mel Melitpolski', 'judith@awesome.com')
+    >>> is_mel('Mel Melitpolski', 'mel@awesome.com')
+    True
+    >>> is_mel('Mel', 'mel@awesome.com')
+    True
+    >>> is_mel('M Melitpolski', 'mel@awesome.com')
+    True
+    >>> is_mel('Judith Butler', 'MEL@UBERMELON.COM')
+    True
+    >>> is_mel('MEL MELITPOLSKI', 'mel@awesome.com')
     True
 
     """
+    is_name = False
 
-    return name == "Mel Melitpolski" or email == "mel@ubermelon.com"
+    for word in name.lower().split(" "):
+        if word in ["mel melitpolski", "mel", "melitpolski"]:
+            is_name = True
+
+    is_email = email.lower() == "mel@ubermelon.com"
+
+    return is_name or is_email
 
 
 def most_and_least_common_type(treats):
     """Given list of treats, return most and least common treat types.
 
     Return most and least common treat types in tuple of format (most, least).
-    
+
     >>> treats = [
     ...     {'type': 'dessert'},
     ...     {'type': 'dessert'},
@@ -148,4 +163,4 @@ if __name__ == "__main__":
     app.debug = True
     app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
     DebugToolbarExtension(app)
-    app.run()
+    app.run(host='0.0.0.0')
